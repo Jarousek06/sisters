@@ -1,0 +1,27 @@
+# Statický web — žádný build, publikuje se obsah této složky.
+
+[build]
+  publish = "."
+
+# Obrázky, CSS a JS mají v názvu stálý obsah → můžou se cachovat dlouho.
+# Při změně fotky se soubor přepíše, proto raději jen hodinová cache s revalidací.
+[[headers]]
+  for = "/assets/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
+
+[[headers]]
+  for = "/assets/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
+
+[[headers]]
+  for = "/assets/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
